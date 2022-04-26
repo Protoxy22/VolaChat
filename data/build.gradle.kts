@@ -3,7 +3,7 @@ plugins {
     kotlin("kapt")
 }
 
-group = "com.myapp"
+group = "net.volachat"
 version = "1.0.0"
 
 repositories {
