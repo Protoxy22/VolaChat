@@ -1,19 +1,17 @@
-package net.volachat.ui.feature.main
+package net.volachat.ui.feature.panel
 
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.*
 import com.arkivanov.decompose.ComponentContext
 import net.volachat.di.AppComponent
 import net.volachat.ui.navigation.Component
 import javax.inject.Inject
 
-class MainScreenComponent(
+class PanelScreenComponent(
     appComponent: AppComponent,
     private val componentContext: ComponentContext,
 ) : Component, ComponentContext by componentContext {
     @Inject
-    lateinit var viewModel: MainViewModel
+    lateinit var viewModel: PanelViewModel
 
     init {
         appComponent.inject(this)
@@ -26,6 +24,6 @@ class MainScreenComponent(
             viewModel.init(scope)
         }
 
-        MainScreen(viewModel)
+        PanelScreen(viewModel)
     }
 }

@@ -1,14 +1,12 @@
 package net.volachat.ui.feature.main
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.input.key.*
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
@@ -17,10 +15,8 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun MainScreen(
-    viewModel: MainViewModel,
+    viewModel: LoginViewModel,
 ) {
-    val welcomeText by viewModel.welcomeText.collectAsState()
-
     Box(
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center
@@ -72,7 +68,7 @@ fun MainScreen(
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Button(
                     onClick = {
-                        viewModel.onClickMeClicked()
+                        viewModel.onClickMeClicked(username, password)
                     }
                 ) {
                     Text(text = "Log In")
@@ -82,7 +78,7 @@ fun MainScreen(
                 )
                 Button(
                     onClick = {
-                        viewModel.onClickMeClicked()
+                        viewModel.onClickMeClicked(username, password)
                     },
                     colors = ButtonDefaults.buttonColors(Color(0xFF084C61))
 

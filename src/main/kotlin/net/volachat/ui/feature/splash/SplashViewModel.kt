@@ -1,6 +1,5 @@
 package net.volachat.ui.feature.splash
 
-import net.volachat.data.repo.MyRepo
 import net.volachat.util.ViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
@@ -9,10 +8,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class SplashViewModel @Inject constructor(
-    private val myRepo: MyRepo,
-    // Inject your repos here...
-) : ViewModel() {
+class SplashViewModel @Inject constructor() : ViewModel() {
 
     companion object {
         const val SPLASH_DELAY = 2000L // 2 seconds of splash delay

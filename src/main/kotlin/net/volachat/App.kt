@@ -7,7 +7,6 @@ import com.theapache64.cyclone.core.Application
 import com.toxicbakery.logging.Arbor
 import com.toxicbakery.logging.Seedling
 
-
 class App(
     appArgs: AppArgs,
 ) : Application() {

@@ -8,8 +8,8 @@ import com.arkivanov.decompose.replaceCurrent
 import com.arkivanov.decompose.router
 import com.arkivanov.decompose.statekeeper.Parcelable
 import net.volachat.di.AppComponent
-import net.volachat.di.DaggerAppComponent
-import net.volachat.ui.feature.main.MainScreenComponent
+import net.volachat.ui.feature.main.LoginScreenComponent
+import net.volachat.ui.feature.panel.PanelScreenComponent
 import net.volachat.ui.feature.splash.SplashScreenComponent
 
 /**
@@ -25,6 +25,7 @@ class NavHostComponent(
     private sealed class Config : Parcelable {
         object Splash : Config()
         object Main : Config()
+        object Panel : Config()
     }
 
     private val appComponent: AppComponent = net.volachat.di.DaggerAppComponent
@@ -48,9 +49,14 @@ class NavHostComponent(
                 componentContext = componentContext,
                 onSplashFinished = ::onSplashFinished,
             )
-            Config.Main -> MainScreenComponent(
+            Config.Main -> LoginScreenComponent(
                 appComponent = appComponent,
-                componentContext = componentContext
+                componentContext = componentContext,
+                onLoginSuccess = ::onLoginSuccess,
+            )
+            Config.Panel -> PanelScreenComponent(
+                appComponent = appComponent,
+                componentContext = componentContext,
             )
         }
     }
@@ -70,5 +76,12 @@ class NavHostComponent(
      */
     private fun onSplashFinished() {
         router.replaceCurrent(Config.Main)
+    }
+
+    /**
+     * Invoked when login successfully
+     */
+    private fun onLoginSuccess() {
+        router.replaceCurrent(Config.Panel)
     }
 }
