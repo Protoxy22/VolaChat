@@ -1,11 +1,12 @@
 package net.volachat
 
 
-import net.volachat.model.AppArgs
+import net.volachat.models.AppArgs
 import net.volachat.ui.feature.MainActivity
 import com.theapache64.cyclone.core.Application
 import com.toxicbakery.logging.Arbor
 import com.toxicbakery.logging.Seedling
+import net.voltachat.server.models.token.TokenResponse
 
 class App(
     appArgs: AppArgs,
@@ -13,6 +14,9 @@ class App(
 
     companion object {
         lateinit var appArgs: AppArgs
+        var volachat_server_ip = "0.0.0.0"
+        var volachat_server_port = 8282
+        lateinit var token: TokenResponse
     }
 
     init {

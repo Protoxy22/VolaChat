@@ -2,6 +2,10 @@ package net.volachat.ui.feature.panel
 
 import androidx.compose.runtime.*
 import com.arkivanov.decompose.ComponentContext
+import io.ktor.client.*
+import io.ktor.client.engine.cio.*
+import io.ktor.client.plugins.auth.*
+import io.ktor.client.plugins.auth.providers.*
 import net.volachat.di.AppComponent
 import net.volachat.ui.navigation.Component
 import javax.inject.Inject

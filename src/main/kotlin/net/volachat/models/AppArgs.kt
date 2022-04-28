@@ -1,4 +1,4 @@
-package net.volachat.model
+package net.volachat.models
 
 data class AppArgs(
     val appName: String,

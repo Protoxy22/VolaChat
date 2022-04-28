@@ -11,6 +11,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 
 @Composable
@@ -68,7 +69,7 @@ fun MainScreen(
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Button(
                     onClick = {
-                        viewModel.onClickMeClicked(username, password)
+                        viewModel.onLogin(username, password)
                     }
                 ) {
                     Text(text = "Log In")
@@ -78,12 +79,24 @@ fun MainScreen(
                 )
                 Button(
                     onClick = {
-                        viewModel.onClickMeClicked(username, password)
+                        viewModel.onRegister(username, password)
+                        username = ""
+                        password = ""
                     },
                     colors = ButtonDefaults.buttonColors(Color(0xFF084C61))
 
                 ) {
                     Text(text = "Register")
+                }
+            }
+            Box(
+                contentAlignment = Alignment.Center
+            ) {
+                if (viewModel.isBadLogin) {
+                    Text(
+                        "Bad login, please retry", textAlign = TextAlign.Center,
+                        modifier = Modifier.width(150.dp), color = Color.Red
+                    )
                 }
             }
         }

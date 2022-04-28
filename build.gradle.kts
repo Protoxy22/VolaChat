@@ -23,11 +23,22 @@ repositories {
 val daggerVersion by extra("2.39.1")
 
 dependencies {
+    implementation(kotlin("stdlib"))
+
+    //Compose
     implementation(compose.desktop.currentOs)
 
-    // Module dependencies
-    //implementation(project(":data"))
+    //Ktor Network, for TCP networking server/client
+    implementation("io.ktor:ktor-network:2.0.0")
+    implementation("io.ktor:ktor-network-tls:2.0.0")
 
+    //Ktor Client
+    implementation("io.ktor:ktor-client-core:2.0.0")
+    implementation("io.ktor:ktor-client-cio:2.0.0")
+    implementation("io.ktor:ktor-client-auth:2.0.0")
+    implementation("io.ktor:ktor-serialization-gson-jvm:2.0.0")
+    implementation("io.ktor:ktor-client-content-negotiation:2.0.0")
+    // Module dependencies
     // Dagger : A fast dependency injector for Android and Java.
     api("com.google.dagger:dagger:$daggerVersion")
     kapt("com.google.dagger:dagger-compiler:$daggerVersion")
@@ -40,14 +51,8 @@ dependencies {
     val decomposeVersion = "0.2.5"
     implementation("com.arkivanov.decompose:decompose-jvm:$decomposeVersion")
     implementation("com.arkivanov.decompose:extensions-compose-jetbrains-jvm:$decomposeVersion")
-
     // Arbor : Like Timber, just different.
     api("com.ToxicBakery.logging:arbor-jvm:1.34.109")
-
-    implementation(kotlin("stdlib"))
-
-    implementation ("io.jsonwebtoken:jjwt-api:0.11.2")
-    runtimeOnly ("io.jsonwebtoken:jjwt-impl:0.11.2")
 }
 
 tasks.withType<KotlinCompile>() {
