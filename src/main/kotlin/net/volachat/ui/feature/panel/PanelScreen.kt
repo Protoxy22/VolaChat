@@ -72,7 +72,6 @@ fun PanelScreen (viewModel: PanelViewModel) {
     ) {
 
         val state = rememberLazyListState()
-        val itemCount = 100
 
         LazyColumn(Modifier.fillMaxSize().padding(start = 12.dp, end = 12.dp, top = 55.dp, bottom = 65.dp), state) {
             items(viewModel.messages) { x ->

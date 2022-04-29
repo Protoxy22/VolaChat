@@ -4,9 +4,12 @@ import io.ktor.client.call.*
 import io.ktor.client.request.*
 import io.ktor.client.statement.*
 import io.ktor.http.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
 import net.volachat.util.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import net.volachat.App
 import net.volachat.models.auth.UserCredentials
@@ -24,16 +27,17 @@ class LoginViewModel @Inject constructor() : ViewModel() {
 
     fun onLogin(username: String, password: String) {
         System.out.println("Attempt login for ($username, $password)")
-
-        runBlocking {
-            val response: HttpResponse = App.client.post("http://${App.volachat_server_ip}:${App.volachat_server_port}/login") {
-                contentType(ContentType.Application.Json)
-                setBody(UserCredentials(username, password))
-            }
-            if(response.status == HttpStatusCode.Unauthorized){
+        GlobalScope.launch(Dispatchers.IO) {
+            val response: HttpResponse =
+                App.client.post("http://${App.volachat_server_ip}:${App.volachat_server_port}/login") {
+                    contentType(ContentType.Application.Json)
+                    setBody(UserCredentials(username, password))
+                }
+            if (response.status == HttpStatusCode.Unauthorized) {
                 isBadLogin = true
                 println("User error login")
-            } else if (response.status == HttpStatusCode.OK){
+            } else if (response.status == HttpStatusCode.OK) {
+                println(response)
                 val token: TokenResponse = response.body()
                 App.token = token
                 println("Logged as ${App.token!!.username}")

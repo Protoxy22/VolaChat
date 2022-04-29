@@ -1,6 +1,9 @@
 import org.jetbrains.compose.compose
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.gradle.jvm.tasks.Jar
+import java.io.*
+import java.util.spi.*
 
 plugins {
     val kotlinVersion = "1.5.31"
@@ -36,8 +39,10 @@ dependencies {
     implementation("io.ktor:ktor-client-core:2.0.0")
     implementation("io.ktor:ktor-client-cio:2.0.0")
     implementation("io.ktor:ktor-client-auth:2.0.0")
-    implementation("io.ktor:ktor-serialization-gson-jvm:2.0.0")
+
+    implementation("io.ktor:ktor-serialization-gson:2.0.0")
     implementation("io.ktor:ktor-client-content-negotiation:2.0.0")
+
     // Module dependencies
     // Dagger : A fast dependency injector for Android and Java.
     api("com.google.dagger:dagger:$daggerVersion")
@@ -73,6 +78,8 @@ compose.desktop {
     application {
         mainClass = "net.volachat.AppKt"
         nativeDistributions {
+            modules("jdk.crypto.ec")
+
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
             packageName = "volachat"
             packageVersion = "1.0.0"
@@ -92,4 +99,21 @@ compose.desktop {
             }
         }
     }
+}
+
+val printModuleDeps by tasks.creating {
+    doLast {
+        val uberJar = tasks.named("packageUberJarForCurrentOS", Jar::class)
+        val jarFile = uberJar.get().archiveFile.get().asFile
+
+        val jdeps = ToolProvider.findFirst("jdeps").orElseGet { error("Can't find jdeps tool in JDK") }
+        val out = StringWriter()
+        val pw = PrintWriter(out)
+        jdeps.run(pw, pw, "--print-module-deps", "--ignore-missing-deps", jarFile.absolutePath)
+
+        val modules = out.toString()
+        println(modules)
+        // compose.desktop.application.nativeDistributions.modules.addAll(modules.split(","))
+    }
+    dependsOn("packageUberJarForCurrentOS")
 }

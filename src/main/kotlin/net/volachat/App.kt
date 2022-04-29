@@ -23,6 +23,10 @@ class App(
         var token: TokenResponse? = null
 
         val client = HttpClient() {
+            engine {
+                threadsCount = 4
+                pipelining = true
+            }
             install(ContentNegotiation) {
                 gson()
             }
