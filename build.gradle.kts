@@ -59,6 +59,16 @@ tasks.withType<KotlinCompile>() {
     kotlinOptions.jvmTarget = "11"
 }
 
+tasks.jar {
+    manifest {
+        attributes["Main-Class"] = "net.volachat.AppKt"
+    }
+    configurations["compileClasspath"].forEach { file: File ->
+        from(zipTree(file.absoluteFile))
+    }
+    duplicatesStrategy = DuplicatesStrategy.INCLUDE
+}
+
 compose.desktop {
     application {
         mainClass = "net.volachat.AppKt"
@@ -80,7 +90,6 @@ compose.desktop {
             macOS {
                 iconFile.set(iconsRoot.resolve("launcher_icons/macos.icns"))
             }
-
         }
     }
 }

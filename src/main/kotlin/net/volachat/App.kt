@@ -18,15 +18,11 @@ class App(
 
     companion object {
         lateinit var appArgs: AppArgs
-        var volachat_server_ip = "0.0.0.0"
+        var volachat_server_ip = "5.135.103.173"
         var volachat_server_port = 8282
         var token: TokenResponse? = null
 
         val client = HttpClient() {
-            engine {
-                threadsCount = 4
-                pipelining = true
-            }
             install(ContentNegotiation) {
                 gson()
             }
