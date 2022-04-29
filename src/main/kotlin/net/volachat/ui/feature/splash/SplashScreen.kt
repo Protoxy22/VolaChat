@@ -11,9 +11,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun SplashScreen(
-    viewModel: SplashViewModel,
-) {
+fun SplashScreen(viewModel: SplashViewModel) {
     Box(
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center

@@ -15,9 +15,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun MainScreen(
-    viewModel: LoginViewModel,
-) {
+fun MainScreen(viewModel: LoginViewModel ) {
     Box(
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center
@@ -96,6 +94,18 @@ fun MainScreen(
                     Text(
                         "Bad login, please retry", textAlign = TextAlign.Center,
                         modifier = Modifier.width(150.dp), color = Color.Red
+                    )
+                }
+                if (viewModel.isBadRegister) {
+                    Text(
+                        "Bad registering, please retry", textAlign = TextAlign.Center,
+                        modifier = Modifier.width(150.dp), color = Color.Red
+                    )
+                }
+                if (viewModel.isSuccessRegister) {
+                    Text(
+                        "User successfully registered", textAlign = TextAlign.Center,
+                        modifier = Modifier.width(150.dp), color = Color.Green
                     )
                 }
             }

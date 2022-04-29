@@ -1,4 +1,4 @@
-package net.voltachat.server.models.token
+package net.volachat.models.token
 
 data class TokenResponse(
     val username: String,

@@ -6,7 +6,11 @@ import net.volachat.ui.feature.MainActivity
 import com.theapache64.cyclone.core.Application
 import com.toxicbakery.logging.Arbor
 import com.toxicbakery.logging.Seedling
-import net.voltachat.server.models.token.TokenResponse
+import io.ktor.client.*
+import io.ktor.client.plugins.contentnegotiation.*
+import io.ktor.client.plugins.websocket.*
+import io.ktor.serialization.gson.*
+import net.volachat.models.token.TokenResponse
 
 class App(
     appArgs: AppArgs,
@@ -16,7 +20,18 @@ class App(
         lateinit var appArgs: AppArgs
         var volachat_server_ip = "0.0.0.0"
         var volachat_server_port = 8282
-        lateinit var token: TokenResponse
+        var token: TokenResponse? = null
+
+        val client = HttpClient() {
+            engine {
+                threadsCount = 4
+                pipelining = true
+            }
+            install(ContentNegotiation) {
+                gson()
+            }
+            install(WebSockets)
+        }
     }
 
     init {

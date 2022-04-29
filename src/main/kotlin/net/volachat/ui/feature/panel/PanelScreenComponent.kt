@@ -6,14 +6,13 @@ import io.ktor.client.*
 import io.ktor.client.engine.cio.*
 import io.ktor.client.plugins.auth.*
 import io.ktor.client.plugins.auth.providers.*
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import net.volachat.di.AppComponent
 import net.volachat.ui.navigation.Component
 import javax.inject.Inject
 
-class PanelScreenComponent(
-    appComponent: AppComponent,
-    private val componentContext: ComponentContext,
-) : Component, ComponentContext by componentContext {
+class PanelScreenComponent(appComponent: AppComponent, private val componentContext: ComponentContext, private val onLogOut: () -> Unit) : Component, ComponentContext by componentContext {
     @Inject
     lateinit var viewModel: PanelViewModel
 
@@ -26,6 +25,11 @@ class PanelScreenComponent(
         val scope = rememberCoroutineScope()
         LaunchedEffect(viewModel) {
             viewModel.init(scope)
+        }
+
+        val isTryingToLogOut by viewModel.isTryingToLogOut.collectAsState()
+        if (isTryingToLogOut) {
+            onLogOut()
         }
 
         PanelScreen(viewModel)

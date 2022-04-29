@@ -10,9 +10,4 @@ object R {
         val Elephant = Color(0xff0D2841)
         val WildWatermelon = Color(0xffFF5370)
     }
-
-    @Suppress("ClassName")
-    object string {
-        const val ACTION_MAIN_CLICK_ME = "Click Me!"
-    }
 }

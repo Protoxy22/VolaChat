@@ -22,7 +22,7 @@ val DarkTheme = darkColors(
 
 @Composable
 fun volachatTheme(
-    isDark: Boolean = true, // TODO: If you want to support both light theme and dark theme, you'll need to implement it manually.
+    isDark: Boolean = true,
     content: @Composable ColumnScope.() -> Unit,
 ) {
     MaterialTheme(

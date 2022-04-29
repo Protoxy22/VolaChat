@@ -57,6 +57,7 @@ class NavHostComponent(
             Config.Panel -> PanelScreenComponent(
                 appComponent = appComponent,
                 componentContext = componentContext,
+                onLogOut = ::onLogOut,
             )
         }
     }
@@ -83,5 +84,12 @@ class NavHostComponent(
      */
     private fun onLoginSuccess() {
         router.replaceCurrent(Config.Panel)
+    }
+
+    /**
+     * Invoked when login successfully
+     */
+    private fun onLogOut() {
+        router.replaceCurrent(Config.Main)
     }
 }
